@@ -1,4 +1,5 @@
 import "./App.css";
+import StatusInfo from "./components/StatusInfo";
 
 export type metrics = {
   status: string;
@@ -15,7 +16,7 @@ function App() {
     cpu_percent: 50,
     memory_percent: 50,
   };
-  return <></>;
+  return <StatusInfo metrics={test_metrics}></StatusInfo>;
 }
 
 export default App;
