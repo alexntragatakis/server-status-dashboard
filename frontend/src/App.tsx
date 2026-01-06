@@ -19,6 +19,17 @@ function App() {
     memory_percent: 0,
   };
   const [metrics, setMetrics] = useState<metrics>(loading_metrics);
+  const [refresh, setRefresh] = useState<number>(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRefresh((prev) => (prev === 0 ? 1 : 0));
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +38,7 @@ function App() {
       setMetrics(metrics);
     };
     fetchData();
-  }, []);
+  }, [refresh]);
 
   return <StatusInfo metrics={metrics}></StatusInfo>;
 }
