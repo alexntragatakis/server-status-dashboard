@@ -12,14 +12,13 @@ export type metrics = {
 const API_URL = "/api";
 
 function App() {
-  const test_metrics = {
-    // TODO: Make logic to get actual metrics
-    status: "ok",
-    uptime_seconds: 60,
-    cpu_percent: 50,
-    memory_percent: 50,
+  const loading_metrics = {
+    status: "Loading...",
+    uptime_seconds: 0,
+    cpu_percent: 0,
+    memory_percent: 0,
   };
-  const [metrics, setMetrics] = useState<metrics>(test_metrics);
+  const [metrics, setMetrics] = useState<metrics>(loading_metrics);
 
   useEffect(() => {
     const fetchData = async () => {
