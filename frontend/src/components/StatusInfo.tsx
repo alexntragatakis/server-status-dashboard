@@ -13,8 +13,8 @@ const StatusInfo = ({ metrics }: Props) => {
       <div>
         <div>Status: {metrics.status}</div>
         <div>Uptime: {metrics.uptime_seconds} seconds</div>
-        <div>CPU Usage: {metrics.cpu_percent}</div>
-        <div>Memory Usage: {metrics.memory_percent}</div>
+        <div>CPU Usage: {metrics.cpu_percent}%</div>
+        <div>Memory Usage: {metrics.memory_percent}%</div>
       </div>
     </>
   );
