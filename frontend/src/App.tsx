@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 import StatusInfo from "./components/StatusInfo";
 
@@ -8,6 +9,8 @@ export type metrics = {
   memory_percent: number;
 };
 
+const API_URL = "/api";
+
 function App() {
   const test_metrics = {
     // TODO: Make logic to get actual metrics
@@ -16,7 +19,18 @@ function App() {
     cpu_percent: 50,
     memory_percent: 50,
   };
-  return <StatusInfo metrics={test_metrics}></StatusInfo>;
+  const [metrics, setMetrics] = useState<metrics>(test_metrics);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${API_URL}/status`);
+      const metrics = (await response.json()) as metrics;
+      setMetrics(metrics);
+    };
+    fetchData();
+  }, []);
+
+  return <StatusInfo metrics={metrics}></StatusInfo>;
 }
 
 export default App;
