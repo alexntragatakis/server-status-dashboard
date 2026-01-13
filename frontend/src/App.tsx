@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import StatusInfo from "./components/StatusInfo";
+import MetricChart from "./components/MetricChart";
 
 export type metrics = {
   status: string;
@@ -40,7 +41,14 @@ function App() {
     fetchData();
   }, [refresh]);
 
-  return <StatusInfo metrics={metrics}></StatusInfo>;
+  const test_data = [10, 30, 20, 15, 35, 25, 10, 20, 20, 25];
+
+  return (
+    <>
+      <StatusInfo metrics={metrics}></StatusInfo>
+      <MetricChart title="Example Metric" data={test_data} />
+    </>
+  );
 }
 
 export default App;
