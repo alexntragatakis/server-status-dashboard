@@ -21,6 +21,8 @@ function App() {
   };
   const [metrics, setMetrics] = useState<metrics>(loading_metrics);
   const [refresh, setRefresh] = useState<number>(0);
+  const [last60CPU, setLast60CPU] = useState<number[]>([]);
+  const [last60Memory, setLast60Memory] = useState<number[]>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,16 +39,17 @@ function App() {
       const response = await fetch(`${API_URL}/status`);
       const metrics = (await response.json()) as metrics;
       setMetrics(metrics);
+      setLast60CPU((prev) => [...prev, metrics.cpu_percent].slice(-60));
+      setLast60Memory((prev) => [...prev, metrics.memory_percent].slice(-60));
     };
     fetchData();
   }, [refresh]);
 
-  const test_data = [10, 30, 20, 15, 35, 25, 10, 20, 20, 25];
-
   return (
     <>
       <StatusInfo metrics={metrics}></StatusInfo>
-      <MetricChart title="Example Metric" data={test_data} />
+      <MetricChart title="CPU Usage Percent" data={last60CPU} />
+      <MetricChart title="Memory Usage Percent" data={last60Memory} />
     </>
   );
 }
